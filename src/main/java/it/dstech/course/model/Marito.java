@@ -5,7 +5,6 @@ public class Marito {
 	private String username;
 	private String password;
 	private int saldo;
-	private int azioni;
 
 	public String getUsername() {
 		return username;
@@ -31,25 +30,17 @@ public class Marito {
 		this.saldo = saldo;
 	}
 
-	public int getAzioni() {
-		return azioni;
-	}
-
-	public void setAzioni(int azioni) {
-		this.azioni = azioni;
-	}
-
 	public Marito(String username, String password) {
 		this.username = username;
 		this.password = password;
 		this.saldo = 0;
-		this.azioni = 0;
 	}
 
 	@Override
 	public String toString() {
-		return "Marito [username=" + username + ", password=" + password + ", saldo=" + saldo + ", azioni=" + azioni
-				+ "]";
+		return "Marito [username=" + username + ", password=" + password + ", saldo=" + saldo + "]";
 	}
+
+	
 
 }
