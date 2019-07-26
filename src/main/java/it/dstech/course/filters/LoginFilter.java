@@ -39,8 +39,7 @@ public class LoginFilter implements Filter{
 			}
 			else {
 				res.sendRedirect("primaPagina.jsp");
-				
-				
+							
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();

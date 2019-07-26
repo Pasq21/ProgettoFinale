@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>REGISTRAZIONE RIUSCITA!</h1>
-	<form action="inizio" method="POST">
+	<form action="inizio">
 		<input type="submit" value="Ritorna alla Home">
 	</form>
 </body>
