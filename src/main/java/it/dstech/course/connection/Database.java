@@ -10,6 +10,8 @@ import it.dstech.course.model.Marito;
 
 import it.dstech.course.model.Marito;
 
+import it.dstech.course.model.Marito;
+
 public class Database {
 
 	private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
