@@ -38,7 +38,7 @@ public class LoginFilter implements Filter{
 				chain.doFilter(request, response);
 			}
 			else {
-				res.sendRedirect("primaPagina.jsp");
+				res.sendRedirect("login.jsp");
 							
 			}
 		} catch (ClassNotFoundException e) {

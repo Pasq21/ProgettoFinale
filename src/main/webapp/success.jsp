@@ -10,6 +10,7 @@
 	<h1>REGISTRAZIONE RIUSCITA!</h1>
 	<form action="inizio">
 		<input type="submit" value="Ritorna alla Home">
-	</form>
+		</form>
+
 </body>
 </html>

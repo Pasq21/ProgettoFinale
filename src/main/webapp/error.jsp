@@ -11,7 +11,8 @@
 <h1>REGISTRAZIONE NON RIUSCITA!</h1>
 <h2>Username già esistente.</h2>
 	<form action="inizio">
-		<input type="submit" value="Ritorna alla Home">
+		<input type="submit" value="Torna alla Home">
 	</form>
+		
 </body>
 </html>
