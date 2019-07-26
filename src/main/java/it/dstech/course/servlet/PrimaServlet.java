@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import it.dstech.course.connections.Database;
+import it.dstech.course.connection.Database;
 import it.dstech.course.model.Marito;
 
 	public class PrimaServlet extends HttpServlet {
