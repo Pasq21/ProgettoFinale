@@ -1,4 +1,4 @@
-package it.dstech.course.connection;
+ package it.dstech.course.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,10 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import it.dstech.course.model.Marito;
-
-import it.dstech.course.model.Marito;
-
 import it.dstech.course.model.Marito;
 
 public class Database {

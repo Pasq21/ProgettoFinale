@@ -70,7 +70,7 @@ a {
 
 <form action="inizio" method = "POST">
   <div class="container">
-    <h1>Registrazone marito</h1>
+    <h1>Registrazione marito</h1>
     <p>Inserisci i tuoi dati per creare un account.</p>
     <hr>
 

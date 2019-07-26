@@ -14,7 +14,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it.dstech.course.connections.Database;
+import it.dstech.course.connection.Database;
 
 
 public class LoginFilter implements Filter{
@@ -31,16 +31,15 @@ public class LoginFilter implements Filter{
 		
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
-		String user =req.getParameter("uname");
-		String pass = req.getParameter("pwd");
+		String user =req.getParameter("user");
+		String pass = req.getParameter("pass");
 		try {
 			if(Database.checkLogin(user, pass)) {
 				chain.doFilter(request, response);
 			}
 			else {
-				res.sendRedirect("login.jsp");
-				PrintWriter out= res.getWriter();
-				out.println("<font color=red> Username o password errata</font>");
+				res.sendRedirect("primaPagina.jsp");
+				
 				
 			}
 		} catch (ClassNotFoundException e) {

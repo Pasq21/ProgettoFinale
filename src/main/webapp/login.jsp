@@ -10,11 +10,11 @@
 
 <h2>Inserisci username e password: </h2>
     <form action="login" method="POST">
-      <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Inserisci Username" name="uname" required>
+      <label for="user"><b>Username</b></label>
+      <input type="text" placeholder="Inserisci Username" name="user" required>
 
-      <label for="psw"><b>Password</b></label>
-      <input type="password" placeholder="Inserisci Password" name="psw" required>
+      <label for="pass"><b>Password</b></label>
+      <input type="password" placeholder="Inserisci Password" name="pass" required>
         
       <input type="submit" value="accedi">
   </form>

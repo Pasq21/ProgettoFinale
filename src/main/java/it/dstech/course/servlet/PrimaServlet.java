@@ -27,7 +27,7 @@ import it.dstech.course.model.Marito;
 				getServletContext().getRequestDispatcher("/registrazione.jsp").forward(req, resp);
 			}
 			else {
-				getServletContext().getRequestDispatcher("/primascelta.jsp").forward(req, resp);
+				getServletContext().getRequestDispatcher("/primaPagina.jsp").forward(req, resp);
 			}
 		}
 

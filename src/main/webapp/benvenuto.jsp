@@ -4,12 +4,9 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Inserimento riuscito</title>
+<title>Insert title here</title>
 </head>
 <body>
-	<h1>REGISTRAZIONE RIUSCITA!</h1>
-	<form action="inizio" method="POST">
-		<input type="submit" value="Ritorna alla Home">
-	</form>
+<h1> BENVENUTA CLAMOROSA!! BALUBA INFAMI!!</h1>
 </body>
 </html>
