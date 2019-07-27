@@ -35,7 +35,7 @@ public class LoginFilter implements Filter{
 		String pass = req.getParameter("pass");
 		try {
 			if(Database.checkLogin(user, pass)) {
-				chain.doFilter(request, response);
+				chain.doFilter(req, res);
 			}
 			else {
 				res.sendRedirect("login.jsp");

@@ -33,5 +33,28 @@
 		<filter-name>filtroLogin</filter-name>
 		<url-pattern>/login</url-pattern>
 	</filter-mapping>
+	
+	<servlet>
+		<servlet-name>servlet3</servlet-name>
+		<servlet-class>it.dstech.course.servlet.TerzaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>servlet3</servlet-name>
+		<url-pattern>/azioniPerMoglie</url-pattern>
+	</servlet-mapping>
+
+
+<servlet>
+		<servlet-name>servlet4</servlet-name>
+		<servlet-class>it.dstech.course.servlet.QuartaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>servlet4</servlet-name>
+		<url-pattern>/azioniPerMarito</url-pattern>
+	</servlet-mapping>
+
+
+
+
 
 </web-app>
