@@ -50,7 +50,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>servlet4</servlet-name>
-		<url-pattern>/azioniPerMarito</url-pattern>
+		<url-pattern>/storico</url-pattern>
 	</servlet-mapping>
 
 

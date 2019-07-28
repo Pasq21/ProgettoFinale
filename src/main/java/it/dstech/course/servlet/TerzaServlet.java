@@ -17,6 +17,9 @@ import it.dstech.mogliemiglia.Attivita;
 import it.dstech.mogliemiglia.GestioneMoglieMiglia;
 
 public class TerzaServlet extends HttpServlet {
+	
+	
+
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -35,6 +38,7 @@ public class TerzaServlet extends HttpServlet {
 		Attivita attivita = g.getListaAzioniMoglie().get(i);
 		try {
 			Database.updateSaldo(user, attivita);
+			Database.addStorico(user, attivita);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
@@ -45,12 +49,5 @@ public class TerzaServlet extends HttpServlet {
 
 	}
 
-	// DATA ATTUALE X INSERIMENTO NEL DATABASE
-//	public static void main(String[] args) {
-//		  Date now = new Date();
-//
-//	      SimpleDateFormat dateFormatter = new SimpleDateFormat("d-M-y");
-//	      System.out.println(dateFormatter.format(now));
-//
-//	}
+
 }
