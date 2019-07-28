@@ -6,20 +6,20 @@
 
 
 	<servlet>
-		<servlet-name>servlet1</servlet-name>
-		<servlet-class>it.dstech.course.servlet.PrimaServlet</servlet-class>
+		<servlet-name>registrazioneServlet</servlet-name>
+		<servlet-class>it.dstech.course.servlet.RegisterServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>servlet1</servlet-name>
+		<servlet-name>registrazioneServlet</servlet-name>
 		<url-pattern>/inizio</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>servlet2</servlet-name>
-		<servlet-class>it.dstech.course.servlet.SecondaServlet</servlet-class>
+		<servlet-name>paginaDiBenvenuto</servlet-name>
+		<servlet-class>it.dstech.course.servlet.Benvenuto</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>servlet2</servlet-name>
+		<servlet-name>paginaDiBenvenuto</servlet-name>
 		<url-pattern>/login</url-pattern>
 	</servlet-mapping>
 
@@ -35,22 +35,31 @@
 	</filter-mapping>
 	
 	<servlet>
-		<servlet-name>servlet3</servlet-name>
-		<servlet-class>it.dstech.course.servlet.TerzaServlet</servlet-class>
+		<servlet-name>servletUpdateAzioniMoglie</servlet-name>
+		<servlet-class>it.dstech.course.servlet.UpdateAzioniMoglie</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>servlet3</servlet-name>
+		<servlet-name>servletUpdateAzioniMoglie</servlet-name>
 		<url-pattern>/azioniPerMoglie</url-pattern>
 	</servlet-mapping>
 
 
 <servlet>
-		<servlet-name>servlet4</servlet-name>
-		<servlet-class>it.dstech.course.servlet.QuartaServlet</servlet-class>
+		<servlet-name>servletStorico</servlet-name>
+		<servlet-class>it.dstech.course.servlet.StoricoServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>servlet4</servlet-name>
+		<servlet-name>servletStorico</servlet-name>
 		<url-pattern>/storico</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>servletUpdateAzioniMarito</servlet-name>
+		<servlet-class>it.dstech.course.servlet.UpdateAzioniMarito</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>servletUpdateAzioniMarito</servlet-name>
+		<url-pattern>/azioniPerMarito</url-pattern>
 	</servlet-mapping>
 
 

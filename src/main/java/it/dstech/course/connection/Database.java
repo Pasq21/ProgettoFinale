@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import it.dstech.course.model.Marito;
 
@@ -116,9 +117,9 @@ public class Database {
 		String azione = attivita.getAzione();
 		Date now = new Date();
 		SimpleDateFormat data = new SimpleDateFormat("d-M-y");
-		String data1= data.format(now);
-		String query2="insert into mogliemiglia.storico (idMarito, azione, data) values (?,?,?) ;";
-		PreparedStatement ps= conn.prepareStatement(query2);
+		String data1 = data.format(now);
+		String query2 = "insert into mogliemiglia.storico (idMarito, azione, data) values (?,?,?) ;";
+		PreparedStatement ps = conn.prepareStatement(query2);
 		ps.setInt(1, idUtente);
 		ps.setString(2, azione);
 		ps.setString(3, data1);
@@ -135,19 +136,74 @@ public class Database {
 		while (result.next()) {
 			idUtente = result.getInt(1);
 		}
-		List <String> storicoAzioni = new ArrayList<String>();
-		String query2 = "select storico.azione, storico.data from mogliemiglia.storico where storico.idMarito=\"" + idUtente + "\";" ;
+		List<String> storicoAzioni = new ArrayList<String>();
+		String query2 = "select storico.azione, storico.data from mogliemiglia.storico where storico.idMarito=\""
+				+ idUtente + "\";";
 		Statement statement2 = conn.createStatement();
 		ResultSet result2 = statement2.executeQuery(query2);
-		while(result2.next()) {
-			String azione= result2.getString(1);
-			String data=result2.getString(2);
-			String storicoCompleto=" Hai effettuato l'azione: " + azione + " in data: " + data;
+		while (result2.next()) {
+			String azione = result2.getString(1);
+			String data = result2.getString(2);
+			String storicoCompleto = " Hai effettuato l'azione: " + azione + " in data: " + data;
 			System.out.println(storicoCompleto);
 			storicoAzioni.add(storicoCompleto);
 		}
 		return storicoAzioni;
+
+	}
+
+	public static boolean checkPunti(String username, Attivita attivita) throws ClassNotFoundException, SQLException {
+		Class.forName(JDBC_DRIVER);
+		Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		String query = "select marito.saldo from mogliemiglia.marito where marito.username=\"" + username + "\";";
+		Statement statement = conn.createStatement();
+		ResultSet result = statement.executeQuery(query);
+		int saldo = 0;
+		while (result.next()) {
+			saldo = Math.abs(result.getInt(1));
+		}
+
+		int punteggio = Math.abs(attivita.getPunteggio());
+		if (saldo >= punteggio) {
+
+			return true;
+		}
+		return false;
+	}
+
+	
+	public static boolean azioniPositive(String username) throws ClassNotFoundException, SQLException, URISyntaxException, IOException {
 		
+		Class.forName(JDBC_DRIVER);
+		Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		String query = "select marito.idMarito from mogliemiglia.marito where marito.username=\"" + username + "\";";
+		Statement statement = conn.createStatement();
+		ResultSet result = statement.executeQuery(query);
+		int idUtente = -1;
+		while (result.next()) {
+			idUtente = result.getInt(1);
+		}
+		String query2 = "select storico.azione from mogliemiglia.storico where storico.idMarito = \"" + idUtente
+				+ "\";";
+		Statement statement2 = conn.createStatement();
+		ResultSet result2 = statement2.executeQuery(query2);
+		
+		int numeroAzioniEseguiteConReward = 0;
+
+		GestioneMoglieMiglia g = new GestioneMoglieMiglia();
+		List<Attivita> listaAttivita = g.getListaAzioniMoglie();
+		List<String> listaNomiAttivita = new ArrayList<String>(); 
+		for(Attivita a : listaAttivita) {
+			listaNomiAttivita.add(a.getAzione());
+		}
+		
+		while(result2.next()) {
+			if(listaNomiAttivita.contains(result2.getString(1))) {
+				numeroAzioniEseguiteConReward++;
+			}
+		}
+		
+		return numeroAzioniEseguiteConReward >= 10;
 	}
 
 }

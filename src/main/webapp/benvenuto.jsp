@@ -1,3 +1,4 @@
+<%@page import="it.dstech.course.connection.Database"%>
 <%@page import="java.util.List"%>
 <%@page import="it.dstech.mogliemiglia.Attivita"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -25,9 +26,13 @@
 	<%
 		List<Attivita> listaAzioniMoglie = (List<Attivita>) request.getAttribute("azioniMoglie");
 	%>
+	<%
+		List<Attivita> listaAzioniMarito = (List<Attivita>) request.getAttribute("azioniMarito");
+	%>
 	<form action="azioniPerMoglie" method="POST">
 
-
+		<table>
+		<tr><th>Nome azione</th><th>Punti azione</th></tr>
 		<%
 			Integer i = 0;
 		%>
@@ -35,31 +40,68 @@
 		<%
 			for (Attivita attivita : listaAzioniMoglie) {
 		%>
-		<input type="radio" name="attivita" value="<%=i%>"><%=attivita%>
+		<tr>
+		<th style="text-align: left">
+		<input type="radio" name="attivita" value="<%=i%>"><%=attivita.getAzione()%></th><th><%=attivita.getPunteggio()%>
 		<%
 			i++;
 		%>
-		<br>
+		</th>
+		</tr>
 		<%
 			}
 		%>
+		</table>
 		<input type="hidden" name="user" value="<%=user%>"> <input
 			type="hidden" name="pass" value="<%=pass%>"> <input
 			type="submit" value="Effettua l'azione">
+			
 	</form>
 	<br>
 	<br>
 	<br>
 	<form action="azioniPerMarito" method="POST">
+	<table>
+	<tr><th>Nome azione</th><th>Punti azione</th><th>Livello azione</th></tr>
+	
 		<%
-			for (Attivita attivita : ((List<Attivita>) request.getAttribute("azioniMarito"))) {
+			Integer j = 0;
 		%>
-		<%=attivita%>
-		<br>
+
+		<%
+			for (Attivita attivita : listaAzioniMarito) {
+		%>
+		
+		
+		<%
+			if (((attivita.getLivello() == 1) && (Database.checkPunti(user, attivita)))
+						|| ((attivita.getLivello() == 2) && (Database.azioniPositive(user))
+								&& (Database.checkPunti(user, attivita)))) {
+		%>
+		<tr>
+		<th style="text-align:left">
+		<input type="radio" name="attivita" value="<%=j%>"><%=attivita.getAzione()%></th><th><%=attivita.getPunteggio()%></th><th><%=attivita.getLivello()%></th>
+		
+		<%
+			} else {
+		%>
+		<tr>
+		<th style="text-align:left">
+		<input type="radio" name="attivita" value="<%=j%>" disabled><%=attivita.getAzione()%></th><th><%=attivita.getPunteggio()%></th><th><%=attivita.getLivello()%></th>
 		<%
 			}
 		%>
-		<input type="submit" value="Effettua l'azione">
+		<%
+			j++;
+		%>
+		</tr>
+		<%
+			}
+		%>
+		</table>
+		<input type="hidden" name="user" value="<%=user%>"> <input
+			type="hidden" name="pass" value="<%=pass%>"> <input
+			type="submit" value="Effettua l'azione">
 	</form>
 	<br>
 	<br>
@@ -68,6 +110,12 @@
 		<input type="hidden" name="user" value="<%=user%>"> <input
 			type="hidden" name="pass" value="<%=pass%>"> <input
 			type="submit" value="Visualizza il tuo storico azioni">
+	</form>
+	<br>
+	<br>
+	<br>
+	<form action="inizio">
+		<input type="submit" value="Logout">
 	</form>
 </body>
 </html>

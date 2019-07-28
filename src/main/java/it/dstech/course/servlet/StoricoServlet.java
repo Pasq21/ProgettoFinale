@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import it.dstech.course.connection.Database;
 
-public class QuartaServlet extends HttpServlet {
+public class StoricoServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 

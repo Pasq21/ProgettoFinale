@@ -9,11 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import it.dstech.course.connection.Database;
 import it.dstech.course.model.Marito;
 
-	public class PrimaServlet extends HttpServlet {
+	public class RegisterServlet extends HttpServlet {
 
-		/**
-		 * 
-		 */
 		private static final long serialVersionUID = 1L;
 
 		@Override
