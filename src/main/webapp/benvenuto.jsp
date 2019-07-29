@@ -50,7 +50,9 @@
 		
 		<input type="submit" value="Effettua l'azione">
 			<br>
-			<h3>Spendi i punti accumulati per effettuare azioni per te stesso. Le azioni di secondo livello possono essere sbloccate dopo aver effettuato dieci azioni per tua moglie</h3>
+			<h2>Spendi i punti accumulati per effettuare azioni per te stesso!<br>
+			
+			 Le azioni di secondo livello possono essere sbloccate dopo aver effettuato dieci azioni per tua moglie</h2>
 	</form>
 	<br>
 	<form action="azioniPerMarito" method="POST">
