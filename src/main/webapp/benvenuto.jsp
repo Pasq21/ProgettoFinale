@@ -13,20 +13,14 @@
 	<h1>
 		Benvenuto
 		<%=request.getParameter("user")%>! Il tuo saldo è
-		<%=request.getAttribute("saldo")%>
+		<%String saldo = (String)request.getAttribute("saldo") ; %> <%=saldo %>
 		punti.
 	</h1>
 
 	<%
 		String user = request.getParameter("user");
-	%>
-	<%
 		String pass = request.getParameter("pass");
-	%>
-	<%
 		List<Attivita> listaAzioniMoglie = (List<Attivita>) request.getAttribute("azioniMoglie");
-	%>
-	<%
 		List<Attivita> listaAzioniMarito = (List<Attivita>) request.getAttribute("azioniMarito");
 	%>
 	<form action="azioniPerMoglie" method="POST">
@@ -35,9 +29,7 @@
 		<tr><th>Nome azione</th><th>Punti azione</th></tr>
 		<%
 			Integer i = 0;
-		%>
-
-		<%
+		
 			for (Attivita attivita : listaAzioniMoglie) {
 		%>
 		<tr>
@@ -52,9 +44,11 @@
 			}
 		%>
 		</table>
-		<input type="hidden" name="user" value="<%=user%>"> <input
-			type="hidden" name="pass" value="<%=pass%>"> <input
-			type="submit" value="Effettua l'azione">
+		<input type="hidden" name="saldo" value="<%=saldo%>"> 
+		<input type="hidden" name="user" value="<%=user%>"> 
+		<input type="hidden" name="pass" value="<%=pass%>"> 
+		
+		<input type="submit" value="Effettua l'azione">
 			
 	</form>
 	<br>
@@ -99,9 +93,10 @@
 			}
 		%>
 		</table>
-		<input type="hidden" name="user" value="<%=user%>"> <input
-			type="hidden" name="pass" value="<%=pass%>"> <input
-			type="submit" value="Effettua l'azione">
+		<input type="hidden" name="saldo" value="<%=saldo%>"> 
+		<input type="hidden" name="user" value="<%=user%>">
+		 <input	type="hidden" name="pass" value="<%=pass%>"> 
+		 <input	type="submit" value="Effettua l'azione">
 	</form>
 	<br>
 	<br>

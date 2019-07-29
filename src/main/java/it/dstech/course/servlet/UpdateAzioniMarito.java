@@ -17,7 +17,7 @@ public class UpdateAzioniMarito extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	
+
 		String user = req.getParameter("user");
 		String pass = req.getParameter("pass");
 
@@ -28,17 +28,29 @@ public class UpdateAzioniMarito extends HttpServlet {
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
-		int i = Integer.parseInt(req.getParameter("attivita"));
-		Attivita attivita = g.getListaAzioniMarito().get(i);
-		try {
-			Database.updateSaldo(user, attivita);
-			Database.addStorico(user, attivita);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		String azione = req.getParameter("attivita");
 
-		getServletContext().getRequestDispatcher("/actionSuccess.jsp").forward(req, resp);
+		if (azione != null) {
+			int i = Integer.parseInt(azione);
+			Attivita attivita = g.getListaAzioniMarito().get(i);
+			try {
+				Database.updateSaldo(user, attivita);
+				Database.addStorico(user, attivita);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			getServletContext().getRequestDispatcher("/actionSuccess.jsp").forward(req, resp);
+		} else {
+			req.setAttribute("azioniMarito", g.getListaAzioniMarito());
+			req.setAttribute("azioniMoglie", g.getListaAzioniMoglie());
+			req.setAttribute("saldo", req.getParameter("saldo"));
+
+			req.setAttribute("user", user);
+			req.setAttribute("pass", pass);
+			getServletContext().getRequestDispatcher("/benvenuto.jsp").forward(req, resp);
+		}
 	}
 }

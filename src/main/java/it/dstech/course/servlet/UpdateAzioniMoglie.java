@@ -17,7 +17,6 @@ import it.dstech.mogliemiglia.Attivita;
 import it.dstech.mogliemiglia.GestioneMoglieMiglia;
 
 public class UpdateAzioniMoglie extends HttpServlet {
-	
 
 	private static final long serialVersionUID = 1L;
 
@@ -26,28 +25,38 @@ public class UpdateAzioniMoglie extends HttpServlet {
 
 		String user = req.getParameter("user");
 		String pass = req.getParameter("pass");
-
-		System.out.println(user + "  " + pass);
 		GestioneMoglieMiglia g = null;
 		try {
 			g = new GestioneMoglieMiglia();
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
-		int i = Integer.parseInt(req.getParameter("attivita"));
-		Attivita attivita = g.getListaAzioniMoglie().get(i);
-		try {
-			Database.updateSaldo(user, attivita);
-			Database.addStorico(user, attivita);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
+		String azione = req.getParameter("attivita");
+		if (azione != null) {
+			int i = Integer.parseInt(azione);
+			Attivita attivita = g.getListaAzioniMoglie().get(i);
+			try {
+				Database.updateSaldo(user, attivita);
+				Database.addStorico(user, attivita);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+			getServletContext().getRequestDispatcher("/actionSuccess.jsp").forward(req, resp);
 		}
 
-		getServletContext().getRequestDispatcher("/actionSuccess.jsp").forward(req, resp);
+		else {
 
+			
+			req.setAttribute("azioniMarito", g.getListaAzioniMarito());
+			req.setAttribute("azioniMoglie", g.getListaAzioniMoglie());
+			req.setAttribute("saldo", req.getParameter("saldo"));
+
+			req.setAttribute("user", user);
+			req.setAttribute("pass", pass);
+			getServletContext().getRequestDispatcher("/benvenuto.jsp").forward(req, resp);
+		}
 	}
-
-
 }

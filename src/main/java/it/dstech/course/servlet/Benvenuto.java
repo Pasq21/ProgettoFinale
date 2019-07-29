@@ -26,10 +26,9 @@ public class Benvenuto extends HttpServlet {
 		String pass = req.getParameter("pass");
 		
 		
-		int saldo=0;
+		String saldo="";
 		try {
-			saldo = Database.getSaldo(user);
-			System.out.println(saldo);
+			saldo = ""+Database.getSaldo(user);
 		} catch (ClassNotFoundException | SQLException e1) {
 			e1.printStackTrace();
 		}
