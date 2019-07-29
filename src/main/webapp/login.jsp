@@ -12,9 +12,9 @@
 	<form action="login" method="POST">
 		<label for="user"><b>Username</b></label> <input type="text"
 			placeholder="Inserisci Username" name="user" required> <label
-			for="pass"><b>Password</b></label> <input type="password"
+			for="pass"><b>Password</b></label><input type="password"
 			placeholder="Inserisci Password" name="pass" required> <input
-			type="submit" value="accedi">
+			type="submit" value="accedi"><br><br>
 	</form>
 
 	<form action="inizio">

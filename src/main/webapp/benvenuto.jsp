@@ -16,7 +16,7 @@
 		<%String saldo = (String)request.getAttribute("saldo") ; %> <%=saldo %>
 		punti.
 	</h1>
-
+  <h2> Accumula punti selezionando le azioni che soddisfano tua moglie</h2>
 	<%
 		String user = request.getParameter("user");
 		String pass = request.getParameter("pass");
@@ -49,10 +49,9 @@
 		<input type="hidden" name="pass" value="<%=pass%>"> 
 		
 		<input type="submit" value="Effettua l'azione">
-			
+			<br>
+			<h3>Spendi i punti accumulati per effettuare azioni per te stesso. Le azioni di secondo livello possono essere sbloccate dopo aver effettuato dieci azioni per tua moglie</h3>
 	</form>
-	<br>
-	<br>
 	<br>
 	<form action="azioniPerMarito" method="POST">
 	<table>
@@ -99,18 +98,15 @@
 		 <input	type="submit" value="Effettua l'azione">
 	</form>
 	<br>
-	<br>
-	<br>
 	<form action="storico" method="POST">
-		<input type="hidden" name="user" value="<%=user%>"> <input
-			type="hidden" name="pass" value="<%=pass%>"> <input
-			type="submit" value="Visualizza il tuo storico azioni">
+		<input type="hidden" name="user" value="<%=user%>">
+		 <input	type="hidden" name="pass" value="<%=pass%>"> 
+		 <input	type="submit" value="Visualizza il tuo storico azioni">
 	</form>
-	<br>
-	<br>
 	<br>
 	<form action="inizio">
 		<input type="submit" value="Logout">
+		
 	</form>
 </body>
 </html>
