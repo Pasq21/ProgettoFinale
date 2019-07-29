@@ -13,8 +13,7 @@ public class GestioneMoglieMiglia {
 	private List<Attivita> husbandActivity;
 
 	public static void main (String [] args) throws URISyntaxException, IOException {
-		GestioneMoglieMiglia g = new GestioneMoglieMiglia();
-		System.out.println(g.getListaAzioniMarito());
+		GestioneMoglieMiglia g = new GestioneMoglieMiglia();	
 	}
 	public GestioneMoglieMiglia() throws URISyntaxException, IOException {
 		wifeActivity = new ArrayList<Attivita>();
