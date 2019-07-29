@@ -25,10 +25,15 @@ public class Database {
 	private static final String USER = "root";
 	private static final String PASS = "dstech";
 
-	public static boolean checkUser(String username) throws SQLException, ClassNotFoundException {
+	public static Connection connectionDb() throws ClassNotFoundException, SQLException {
 		Class.forName(JDBC_DRIVER);
 		Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-		Statement statement = conn.createStatement();
+		return conn;
+	}
+
+	public static boolean checkUser(String username) throws SQLException, ClassNotFoundException {
+
+		Statement statement = connectionDb().createStatement();
 		String query = "select marito.username from mogliemiglia.marito;";
 		ResultSet result = statement.executeQuery(query);
 		while (result.next()) {
@@ -42,10 +47,8 @@ public class Database {
 	}
 
 	public static void addUser(Marito marito) throws SQLException, ClassNotFoundException {
-		Class.forName(JDBC_DRIVER);
-		Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 		String query = "insert into mogliemiglia.marito (username, password, saldo) values (?, ?, ?);";
-		PreparedStatement ps = conn.prepareStatement(query);
+		PreparedStatement ps = connectionDb().prepareStatement(query);
 		ps.setString(1, marito.getUsername());
 		ps.setString(2, marito.getPassword());
 		ps.setInt(3, 0);
@@ -54,10 +57,8 @@ public class Database {
 	}
 
 	public static boolean checkLogin(String username, String password) throws SQLException, ClassNotFoundException {
-		Class.forName(JDBC_DRIVER);
-		Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 		String query = "SELECT marito.username, marito.password from mogliemiglia.marito;";
-		Statement statement = conn.createStatement();
+		Statement statement = connectionDb().createStatement();
 		ResultSet result = statement.executeQuery(query);
 		while (result.next()) {
 			String user = result.getString(1);
@@ -71,10 +72,8 @@ public class Database {
 	}
 
 	public static int getSaldo(String username) throws SQLException, ClassNotFoundException {
-		Class.forName(JDBC_DRIVER);
-		Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 		String query = "SELECT marito.saldo from mogliemiglia.marito where marito.username=\"" + username + "\";";
-		Statement statement = conn.createStatement();
+		Statement statement = connectionDb().createStatement();
 		ResultSet result = statement.executeQuery(query);
 		int saldo = 0;
 		while (result.next()) {
@@ -84,11 +83,9 @@ public class Database {
 	}
 
 	public static void updateSaldo(String username, Attivita attivita) throws ClassNotFoundException, SQLException {
-		Class.forName(JDBC_DRIVER);
-		Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 		String query = "select marito.idMarito, marito.saldo from mogliemiglia.marito where marito.username=\""
 				+ username + "\";";
-		Statement statement = conn.createStatement();
+		Statement statement = connectionDb().createStatement();
 		ResultSet result = statement.executeQuery(query);
 		int idUtente = -1;
 		int oldSaldo = 0;
@@ -98,52 +95,47 @@ public class Database {
 		}
 		int nuovoSaldo = oldSaldo + attivita.getPunteggio();
 		String query2 = "UPDATE mogliemiglia.marito SET marito.saldo = (?) WHERE marito.idMarito = (?);";
-		PreparedStatement ps = conn.prepareStatement(query2);
+		PreparedStatement ps = connectionDb().prepareStatement(query2);
 		ps.setInt(1, nuovoSaldo);
 		ps.setInt(2, idUtente);
 		ps.executeUpdate();
 	}
 
-	public static void addStorico(String username, Attivita attivita) throws ClassNotFoundException, SQLException {
-		Class.forName(JDBC_DRIVER);
-		Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+	public static int getIdMarito(String username) throws ClassNotFoundException, SQLException {
 		String query = "select marito.idMarito from mogliemiglia.marito where marito.username=\"" + username + "\";";
-		Statement statement = conn.createStatement();
+		Statement statement = connectionDb().createStatement();
 		ResultSet result = statement.executeQuery(query);
 		int idUtente = -1;
 		while (result.next()) {
 			idUtente = result.getInt(1);
 		}
+		return idUtente;
+	}
+
+	public static void addStorico(String username, Attivita attivita) throws ClassNotFoundException, SQLException {
+		int idUtente = getIdMarito(username);
 		String azione = attivita.getAzione();
 		Date now = new Date();
 		SimpleDateFormat data = new SimpleDateFormat("d-M-y");
 		String data1 = data.format(now);
-		String query2 = "insert into mogliemiglia.storico (idMarito, azione, data) values (?,?,?) ;";
-		PreparedStatement ps = conn.prepareStatement(query2);
+		String query = "insert into mogliemiglia.storico (idMarito, azione, data) values (?,?,?) ;";
+		PreparedStatement ps = connectionDb().prepareStatement(query);
 		ps.setInt(1, idUtente);
 		ps.setString(2, azione);
 		ps.setString(3, data1);
 		ps.executeUpdate();
 	}
-	
+
 	public static List<String> getStorico(String username) throws ClassNotFoundException, SQLException {
-		Class.forName(JDBC_DRIVER);
-		Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-		String query = "select marito.idMarito from mogliemiglia.marito where marito.username=\"" + username + "\";";
-		Statement statement = conn.createStatement();
-		ResultSet result = statement.executeQuery(query);
-		int idUtente = -1;
-		while (result.next()) {
-			idUtente = result.getInt(1);
-		}
+		int idUtente = getIdMarito(username);
 		List<String> storicoAzioni = new ArrayList<String>();
-		String query2 = "select storico.azione, storico.data from mogliemiglia.storico where storico.idMarito=\""
+		String query = "select storico.azione, storico.data from mogliemiglia.storico where storico.idMarito=\""
 				+ idUtente + "\";";
-		Statement statement2 = conn.createStatement();
-		ResultSet result2 = statement2.executeQuery(query2);
-		while (result2.next()) {
-			String azione = result2.getString(1);
-			String data = result2.getString(2);
+		Statement statement = connectionDb().createStatement();
+		ResultSet result = statement.executeQuery(query);
+		while (result.next()) {
+			String azione = result.getString(1);
+			String data = result.getString(2);
 			String storicoCompleto = " Hai effettuato l'azione: " + azione + " in data: " + data;
 			System.out.println(storicoCompleto);
 			storicoAzioni.add(storicoCompleto);
@@ -153,56 +145,44 @@ public class Database {
 	}
 
 	public static boolean checkPunti(String username, Attivita attivita) throws ClassNotFoundException, SQLException {
-		Class.forName(JDBC_DRIVER);
-		Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 		String query = "select marito.saldo from mogliemiglia.marito where marito.username=\"" + username + "\";";
-		Statement statement = conn.createStatement();
+		Statement statement = connectionDb().createStatement();
 		ResultSet result = statement.executeQuery(query);
 		int saldo = 0;
 		while (result.next()) {
 			saldo = Math.abs(result.getInt(1));
 		}
-
 		int punteggio = Math.abs(attivita.getPunteggio());
 		if (saldo >= punteggio) {
-
 			return true;
 		}
 		return false;
 	}
 
-	
-	public static boolean azioniPositive(String username) throws ClassNotFoundException, SQLException, URISyntaxException, IOException {
-		
-		Class.forName(JDBC_DRIVER);
-		Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-		String query = "select marito.idMarito from mogliemiglia.marito where marito.username=\"" + username + "\";";
-		Statement statement = conn.createStatement();
-		ResultSet result = statement.executeQuery(query);
-		int idUtente = -1;
-		while (result.next()) {
-			idUtente = result.getInt(1);
-		}
-		String query2 = "select storico.azione from mogliemiglia.storico where storico.idMarito = \"" + idUtente
+	public static boolean azioniPositive(String username)
+			throws ClassNotFoundException, SQLException, URISyntaxException, IOException {
+
+		int idUtente = getIdMarito(username);
+
+		String query = "select storico.azione from mogliemiglia.storico where storico.idMarito = \"" + idUtente
 				+ "\";";
-		Statement statement2 = conn.createStatement();
-		ResultSet result2 = statement2.executeQuery(query2);
-		
+		Statement statement = connectionDb().createStatement();
+		ResultSet result = statement.executeQuery(query);
+
 		int numeroAzioniEseguiteConReward = 0;
 
 		GestioneMoglieMiglia g = new GestioneMoglieMiglia();
 		List<Attivita> listaAttivita = g.getListaAzioniMoglie();
-		List<String> listaNomiAttivita = new ArrayList<String>(); 
-		for(Attivita a : listaAttivita) {
+		List<String> listaNomiAttivita = new ArrayList<String>();
+		for (Attivita a : listaAttivita) {
 			listaNomiAttivita.add(a.getAzione());
 		}
-		
-		while(result2.next()) {
-			if(listaNomiAttivita.contains(result2.getString(1))) {
+
+		while (result.next()) {
+			if (listaNomiAttivita.contains(result.getString(1))) {
 				numeroAzioniEseguiteConReward++;
 			}
 		}
-		
 		return numeroAzioniEseguiteConReward >= 10;
 	}
 

@@ -23,6 +23,7 @@ public class GestioneMoglieMiglia {
 		//Path path = Paths.get(uri);
 		//Path path = Paths.get(getClass().getClassLoader().getResource("src/main/resources/rewards.csv").toURI());
 	
+		
 		File f = new File("C:\\Users\\Acer\\eclipse-workspace2\\ProgettoFinale\\src\\main\\resources\\rewards.csv");
 		BufferedReader br = new BufferedReader(new FileReader(f));
 		List<Attivita> lista = new ArrayList<Attivita>();
