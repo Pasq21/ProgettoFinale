@@ -12,7 +12,7 @@ public class Attivita {
 
 	public Attivita() {
 	}
-
+ 
 	public Attivita(String azione, int punteggio, int livello) {
 		this.azione = azione;
 		this.punteggio = punteggio;
