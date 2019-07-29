@@ -34,7 +34,6 @@ public class GestioneMoglieMiglia {
 			riga = br.readLine();
 		}
 		br.close();
-		System.out.println(lista);
 		//new CsvToBeanBuilder(new FileReader(f)).withType(Attivita.class).build()
 		//		.parse();
 		for (Attivita attivita : lista) {
